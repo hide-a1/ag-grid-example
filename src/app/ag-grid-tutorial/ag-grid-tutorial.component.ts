@@ -38,7 +38,10 @@ export class AgGridTutorialComponent {
     { field: 'company' },
     { field: 'location' },
     { field: 'date' },
-    { field: 'price' },
+    {
+      field: 'price',
+      valueFormatter: (params) => `¥${(params.value * 150).toLocaleString()}`,
+    },
     { field: 'successful' },
     { field: 'rocket' },
   ];
