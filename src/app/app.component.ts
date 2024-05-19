@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AgGridQuickStartComponent } from './ag-grid-quick-start/ag-grid-quick-start.component';
+import { AgGridTutorialComponent } from './ag-grid-tutorial/ag-grid-tutorial.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, AgGridQuickStartComponent],
+  imports: [RouterOutlet, AgGridTutorialComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
