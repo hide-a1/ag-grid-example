@@ -27,9 +27,14 @@ export class AgGridTutorialComponent {
   // Row Data: The data to be displayed.
   rowData: IRow[] = [];
 
+  // 全ての列に適用されるデフォルトの設定
+  defaultColDef = {
+    filter: true,
+  };
+
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef[] = [
-    { field: 'mission', filter: true },
+    { field: 'mission' },
     { field: 'company' },
     { field: 'location' },
     { field: 'date' },
