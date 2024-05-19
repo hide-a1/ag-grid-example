@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, ValueGetterParams } from 'ag-grid-community';
+import { CustomButtonComponent } from './custom-button/custom-button.component';
 
 interface IRow {
   make: string;
@@ -21,17 +22,33 @@ export class AgGridQuickStartComponent {
 
   // Row Data: The data to be displayed.
   rowData: IRow[] = [
-    { make: 'Tesla', model: 'Model Y', price: 64950, electric: true },
-    { make: 'Ford', model: 'F-Series', price: 33850, electric: false },
-    { make: 'Toyota', model: 'Corolla', price: 29600, electric: false },
+    { make: 'テスラ', model: 'Model Y', price: 64950, electric: true },
+    { make: 'フォード', model: 'F-Series', price: 33850, electric: false },
+    { make: 'トヨタ', model: 'Corolla', price: 29600, electric: false },
   ];
 
   // Column Definitions: Defines the columns to be displayed.
-  colDefs: ColDef<IRow>[] = [
-    { field: 'make' },
-    { field: 'model' },
-    { field: 'price' },
-    { field: 'electric' },
+  colDefs: ColDef[] = [
+    {
+      headerName: 'メーカー & モデル',
+      valueGetter: (p: ValueGetterParams) => `${p.data.make} ${p.data.model}`,
+      flex: 2,
+    },
+    {
+      field: '価格',
+      valueGetter: (p) => p.data.price,
+      valueFormatter: (p) => '¥' + Math.floor(p.value * 150).toLocaleString(),
+      flex: 1,
+    },
+    {
+      field: 'EV',
+      valueGetter: (p) => p.data.electric,
+      cellRenderer: (p: any) => {
+        return p.data.electric ? '🔌' : '⛽';
+      },
+      flex: 1,
+    },
+    { field: 'button', cellRenderer: CustomButtonComponent, flex: 1 },
   ];
 
   defaultColDef: ColDef = {
