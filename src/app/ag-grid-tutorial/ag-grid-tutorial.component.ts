@@ -29,7 +29,7 @@ export class AgGridTutorialComponent {
 
   // Column Definitions: Defines & controls grid columns.
   colDefs: ColDef[] = [
-    { field: 'mission' },
+    { field: 'mission', filter: true },
     { field: 'company' },
     { field: 'location' },
     { field: 'date' },
