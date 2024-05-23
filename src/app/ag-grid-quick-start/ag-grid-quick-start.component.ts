@@ -278,10 +278,10 @@ export class AgGridQuickStartComponent {
   ];
 
   // Column Definitions: Defines the columns to be displayed.
-  colDefs: ColDef[] = [
+  colDefs: ColDef<IRow>[] = [
     {
       headerName: 'メーカー',
-      valueGetter: (p) => p.data.make,
+      valueGetter: (p) => p.data?.make,
       checkboxSelection: true,
       editable: true,
       cellEditor: 'agSelectCellEditor',
@@ -301,28 +301,28 @@ export class AgGridQuickStartComponent {
     },
     {
       headerName: 'モデル',
-      valueGetter: (p) => p.data.model,
+      valueGetter: (p) => p.data?.model,
       flex: 1,
     },
     {
-      field: '価格',
-      valueGetter: (p) => p.data.price,
+      headerName: '価格',
+      valueGetter: (p) => p.data?.price,
       valueFormatter: (p) => '¥' + Math.floor(p.value * 150).toLocaleString(),
       filter: 'agNumberColumnFilter',
       flex: 1,
     },
     {
-      field: 'EV',
-      valueGetter: (p) => p.data.electric,
+      headerName: 'EV',
+      valueGetter: (p) => p.data?.electric,
       cellRenderer: (p: any) => {
         return p.data.electric ? '🔌' : '⛽';
       },
       flex: 1,
     },
-    { field: 'button', cellRenderer: CustomButtonComponent, flex: 1 },
+    { headerName: 'button', cellRenderer: CustomButtonComponent, flex: 1 },
     {
       headerName: '発売月',
-      valueGetter: (p) => p.data.month,
+      valueGetter: (p) => p.data?.month,
       flex: 1,
       // ソート順の定義
       comparator: (valueA, valueB) => {
