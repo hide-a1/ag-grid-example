@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, ColGroupDef } from 'ag-grid-community';
 import { CustomButtonComponent } from './custom-button/custom-button.component';
 
 interface IRow {
@@ -278,46 +278,52 @@ export class AgGridQuickStartComponent {
   ];
 
   // Column Definitions: Defines the columns to be displayed.
-  colDefs: ColDef<IRow>[] = [
-    {
-      headerName: 'メーカー',
-      valueGetter: (p) => p.data?.make,
-      checkboxSelection: true,
-      editable: true,
-      cellEditor: 'agSelectCellEditor',
-      cellEditorParams: {
-        values: [
-          'Tesla',
-          'Ford',
-          'Toyota',
-          'Mercedes',
-          'Fiat',
-          'Nissan',
-          'Vauxhall',
-          'Volvo',
-          'Jaguar',
-        ],
-      },
-    },
+  colDefs: (ColGroupDef<IRow> | ColDef<IRow>)[] = [
     {
       headerName: 'モデル',
       valueGetter: (p) => p.data?.model,
       flex: 1,
     },
     {
-      headerName: '価格',
-      valueGetter: (p) => p.data?.price,
-      valueFormatter: (p) => '¥' + Math.floor(p.value * 150).toLocaleString(),
-      filter: 'agNumberColumnFilter',
-      flex: 1,
-    },
-    {
-      headerName: 'EV',
-      valueGetter: (p) => p.data?.electric,
-      cellRenderer: (p: any) => {
-        return p.data.electric ? '🔌' : '⛽';
-      },
-      flex: 1,
+      headerName: '詳細',
+      children: [
+        {
+          headerName: 'メーカー',
+          valueGetter: (p) => p.data?.make,
+          checkboxSelection: true,
+          editable: true,
+          cellEditor: 'agSelectCellEditor',
+          cellEditorParams: {
+            values: [
+              'Tesla',
+              'Ford',
+              'Toyota',
+              'Mercedes',
+              'Fiat',
+              'Nissan',
+              'Vauxhall',
+              'Volvo',
+              'Jaguar',
+            ],
+          },
+        },
+        {
+          headerName: '価格',
+          valueGetter: (p) => p.data?.price,
+          valueFormatter: (p) =>
+            '¥' + Math.floor(p.value * 150).toLocaleString(),
+          filter: 'agNumberColumnFilter',
+          flex: 1,
+        },
+        {
+          headerName: 'EV',
+          valueGetter: (p) => p.data?.electric,
+          cellRenderer: (p: any) => {
+            return p.data.electric ? '🔌' : '⛽';
+          },
+          flex: 1,
+        },
+      ],
     },
     { headerName: 'button', cellRenderer: CustomButtonComponent, flex: 1 },
     {
